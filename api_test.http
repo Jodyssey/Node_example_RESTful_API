@@ -31,3 +31,6 @@ Content-Type: application/json
     "price": 60000,
     "stock": 2
 }
+
+###
+DELETE {{product_api}}/1 HTTP/1.1

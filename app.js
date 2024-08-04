@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
 class Product {
   constructor(id, name, image, price, stock) {
@@ -50,17 +50,28 @@ app.post("/products", (req, res) => {
 });
 
 app.put("/products/:id", (req, res) => {
-    const id = req.params.id
-    const index = products.findIndex(product => product.id == id)
-    if(index !== -1){
-        const {name, price, stock} = req.body
-        const product = new Product(Number(id), name, "", price, stock)
-        products[index] = product
-        res.json(product)
-    }else{
-        res.status(404).json({})
-    }
-})
+  const id = req.params.id;
+  const index = products.findIndex((product) => product.id == id);
+  if (index !== -1) {
+    const { name, price, stock } = req.body;
+    const product = new Product(Number(id), name, "", price, stock);
+    products[index] = product;
+    res.json(product);
+  } else {
+    res.status(404).json({});
+  }
+});
+
+app.delete("/products/:id", (req, res) => {
+  const id = req.params.id;
+  const index = products.findIndex((product) => product.id == id);
+  if (index !== -1) {
+    products.splice(index, 1);
+    res.status(204).json();
+  } else {
+    res.status(404).json({});
+  }
+});
 
 const port = 3000;
 
