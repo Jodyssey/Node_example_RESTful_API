@@ -49,6 +49,19 @@ app.post("/products", (req, res) => {
   res.status(201).json(product);
 });
 
+app.put("/products/:id", (req, res) => {
+    const id = req.params.id
+    const index = products.findIndex(product => product.id == id)
+    if(index !== -1){
+        const {name, price, stock} = req.body
+        const product = new Product(Number(id), name, "", price, stock)
+        products[index] = product
+        res.json(product)
+    }else{
+        res.status(404).json({})
+    }
+})
+
 const port = 3000;
 
 app.listen(port, () => {
